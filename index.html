@@ -80,30 +80,37 @@
           <button
             onclick="switchPage('home')"
             id="nav-home"
-            class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2"
+            class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-1.5"
           >
             <i class="fa-solid fa-house"></i> Beranda
           </button>
           <button
             onclick="switchPage('simulator')"
             id="nav-simulator"
-            class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2"
+            class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-1.5"
           >
-            <i class="fa-solid fa-sliders"></i> Simulator LED
+            <i class="fa-solid fa-sliders"></i> Simulator
           </button>
           <button
             onclick="switchPage('katalog')"
             id="nav-katalog"
-            class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2"
+            class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-1.5"
           >
-            <i class="fa-solid fa-layer-group"></i> Katalog Lampu
+            <i class="fa-solid fa-layer-group"></i> Katalog
+          </button>
+          <button
+            onclick="switchPage('booking')"
+            id="nav-booking"
+            class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 text-emerald-400"
+          >
+            <i class="fa-solid fa-calendar-check"></i> Booking Tanggal
           </button>
           <button
             onclick="requestAdminAccess()"
             id="nav-admin"
-            class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-pink-400"
+            class="nav-btn px-3 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 text-pink-400"
           >
-            <i class="fa-solid fa-lock" id="admin-icon"></i> Kelola Admin
+            <i class="fa-solid fa-lock" id="admin-icon"></i> Admin
           </button>
         </nav>
 
@@ -129,7 +136,7 @@
             target="_blank"
             class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium flex items-center gap-2 text-slate-300 transition"
           >
-            <i class="fa-solid fa-location-dot text-red-400"></i> Lokasi Bengkel
+            <i class="fa-solid fa-location-dot text-red-400"></i> Maps
           </a>
         </div>
       </div>
@@ -172,72 +179,66 @@
             </p>
             <div class="flex flex-wrap gap-4 pt-2">
               <button
-                onclick="switchPage('simulator')"
-                class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-lg shadow-cyan-500/25 hover:opacity-90 transition flex items-center gap-2"
+                onclick="switchPage('booking')"
+                class="px-6 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-white font-bold shadow-lg shadow-emerald-500/25 hover:opacity-90 transition flex items-center gap-2"
               >
-                <i class="fa-solid fa-sliders"></i> Coba Simulator LED
+                <i class="fa-solid fa-calendar-check"></i> Booking Jadwal Pasang
               </button>
               <button
-                onclick="switchPage('katalog')"
+                onclick="switchPage('simulator')"
                 class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 font-bold transition flex items-center gap-2"
               >
-                <i class="fa-solid fa-box-open"></i> Lihat Katalog
+                <i class="fa-solid fa-sliders"></i> Coba Simulator
               </button>
             </div>
           </div>
         </div>
 
-        <!-- CARDS INFORMASI ISTILAH (TOOLTIPS/ONBOARDING) -->
+        <!-- PENJELASAN ISTILAH -->
         <div class="space-y-3">
           <h3
             class="text-sm font-semibold text-slate-400 uppercase tracking-wider"
           >
-            💡 Penjelasan Istilah Lampu (Arahkan kursor / Sentuh):
+            💡 Penjelasan Istilah Lampu:
           </h3>
           <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div
-              class="p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-500/40 transition"
-            >
+            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
               <div
                 class="font-bold text-cyan-400 text-sm flex items-center gap-2"
               >
                 <i class="fa-solid fa-circle-info"></i> BiLED Projie
               </div>
               <p class="text-xs text-slate-400 mt-1">
-                Lampu projector LED dengan lensa khusus. Sinar sangat fokus,
-                terang padat, dan tidak menyilaukan pengendara lawan arah.
+                Lampu projector LED lensa khusus. Sinar fokus padat, terang,
+                tidak menyilaukan lawan arah.
               </p>
             </div>
-            <div
-              class="p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-purple-500/40 transition"
-            >
+            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
               <div
                 class="font-bold text-purple-400 text-sm flex items-center gap-2"
               >
                 <i class="fa-solid fa-circle-info"></i> DRL Alis Running
               </div>
               <p class="text-xs text-slate-400 mt-1">
-                Lampu alis LED fleksibel dipasang di garis batok. Berfungsi
-                sebagai lampu senja estetik & running otomatis saat sein.
+                Lampu alis LED fleksibel di batok, berfungsi sebagai senja
+                estetik & running otomatis saat sein.
               </p>
             </div>
-            <div
-              class="p-4 rounded-xl bg-slate-900 border border-slate-800 hover:border-pink-500/40 transition"
-            >
+            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800">
               <div
                 class="font-bold text-pink-400 text-sm flex items-center gap-2"
               >
                 <i class="fa-solid fa-circle-info"></i> Underglow Neon
               </div>
               <p class="text-xs text-slate-400 mt-1">
-                Lampu LED kolong kendaraan tahan air (waterproof). Memberikan
-                efek cahaya pancaran bawah bodi yang elegan di malam hari.
+                Lampu kolong kendaraan tahan air (waterproof) memberikan cahaya
+                pancaran bawah bodi elegan.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- LOKASI & JAM OPERASIONAL BENGKEL -->
+        <!-- LOKASI & JAM OPERASIONAL -->
         <div
           class="p-6 rounded-2xl bg-brand-card border border-slate-800 space-y-4"
         >
@@ -253,7 +254,7 @@
               </h3>
               <p class="text-xs text-slate-400 mt-1">
                 Jl. Klero-Suruh, Ngaduman, Regunung, Kec. Tengaran, Kab.
-                Semarang, Jawa Tengah 50775
+                Semarang, Jawa Tengah
               </p>
             </div>
             <div class="flex items-center gap-3">
@@ -290,7 +291,6 @@
           </div>
         </div>
 
-        <!-- PANDUAN LANGKAH PENGGUNAAN (ONBOARDING) -->
         <div
           class="bg-cyan-500/10 border border-cyan-500/30 rounded-xl p-3 text-xs text-cyan-300 flex flex-wrap items-center justify-between gap-2"
         >
@@ -299,7 +299,7 @@
           >
           <span>1. Pilih Tipe Kendaraan</span> ➔
           <span>2. Pilih Area Lampu</span> ➔ <span>3. Pilih Warna Neon</span> ➔
-          <span>4. Klik Pesan via WA</span>
+          <span>4. Pesan via WA</span>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -490,7 +490,175 @@
         ></div>
       </section>
 
-      <!-- 4. TAB TAMBAH PRODUK (ADMIN PANEL) -->
+      <!-- 4. TAB BOOKING JADWAL PEMASANGAN (BARU) -->
+      <section id="page-booking" class="page-content space-y-6">
+        <div class="border-b border-slate-800 pb-4">
+          <h2 class="text-2xl font-bold flex items-center gap-2">
+            <i class="fa-solid fa-calendar-check text-emerald-400"></i> Booking
+            Jadwal Pemasangan Bengkel
+          </h2>
+          <p class="text-xs text-slate-400">
+            Pilih tanggal pengerjaan Anda. Maksimal kuota dibatasi
+            <strong>2 kendaraan per hari</strong> agar pengerjaan fokus dan
+            maksimal.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- FORM BOOKING -->
+          <div
+            class="lg:col-span-2 bg-brand-card border border-slate-800 rounded-2xl p-6 space-y-4"
+          >
+            <h3
+              class="font-bold text-slate-200 text-sm border-b border-slate-800 pb-2"
+            >
+              <i class="fa-solid fa-pen-to-square text-emerald-400 me-1"></i>
+              Form Data Booking Customer
+            </h3>
+            <form
+              id="booking-form"
+              onsubmit="handleBooking(event)"
+              class="space-y-4"
+            >
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs text-slate-400 font-semibold block mb-1"
+                    >Nama Lengkap</label
+                  >
+                  <input
+                    type="text"
+                    id="b-name"
+                    required
+                    placeholder="Contoh: Budi Santoso"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+                <div>
+                  <label class="text-xs text-slate-400 font-semibold block mb-1"
+                    >Nomor WhatsApp</label
+                  >
+                  <input
+                    type="tel"
+                    id="b-phone"
+                    required
+                    placeholder="081234567890"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs text-slate-400 font-semibold block mb-1"
+                    >Jenis Kendaraan</label
+                  >
+                  <input
+                    type="text"
+                    id="b-vehicle"
+                    required
+                    placeholder="Contoh: Honda Vario 150 / NMAX"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+                <div>
+                  <label class="text-xs text-slate-400 font-semibold block mb-1"
+                    >Pilih Tanggal Pemasangan</label
+                  >
+                  <input
+                    type="date"
+                    id="b-date"
+                    required
+                    onchange="checkSlotAvailability()"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label class="text-xs text-slate-400 font-semibold block mb-1"
+                  >Jenis Layanan / Permintaan Modifikasi</label
+                >
+                <select
+                  id="b-service"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-emerald-500"
+                >
+                  <option value="Paket Full Custom (BiLED Projie + Alis DRL)">
+                    Paket Full Custom (BiLED Projie + Alis DRL)
+                  </option>
+                  <option value="Pasang BiLED Projie Saja">
+                    Pasang BiLED Projie Saja
+                  </option>
+                  <option value="Pasang Alis DRL Running Saja">
+                    Pasang Alis DRL Running Saja
+                  </option>
+                  <option value="Pasang Underglow Neon / Strobo">
+                    Pasang Underglow Neon / Strobo
+                  </option>
+                  <option value="Konsultasi & Servis Kelistrikan">
+                    Konsultasi & Servis Kelistrikan
+                  </option>
+                </select>
+              </div>
+
+              <div
+                id="slot-alert"
+                class="p-3 rounded-xl text-xs bg-slate-900 border border-slate-700 text-slate-300"
+              >
+                Silakan pilih tanggal untuk mengecek ketersediaan slot kuota
+                bengkel.
+              </div>
+
+              <button
+                type="submit"
+                id="btn-submit-booking"
+                class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 font-bold text-white shadow-lg hover:opacity-90 transition flex items-center justify-center gap-2"
+              >
+                <i class="fa-brands fa-whatsapp text-lg"></i> Konfirmasi Booking
+                via WhatsApp
+              </button>
+            </form>
+          </div>
+
+          <!-- INFORMASI KUOTA & JADWAL TERDAFTAR -->
+          <div
+            class="bg-brand-card border border-slate-800 rounded-2xl p-6 space-y-4"
+          >
+            <h3
+              class="font-bold text-slate-200 text-sm border-b border-slate-800 pb-2"
+            >
+              <i class="fa-solid fa-clipboard-list text-cyan-400 me-1"></i>
+              Status Slot Bengkel
+            </h3>
+            <div class="space-y-3 text-xs text-slate-400">
+              <div
+                class="p-3 bg-slate-900 rounded-xl border border-slate-800 space-y-1"
+              >
+                <span class="font-bold text-slate-200 block"
+                  >Kebijakan Kuota Harian:</span
+                >
+                <p>
+                  Maksimal hanya melayani
+                  <strong>2 kendaraan per hari</strong> untuk memastikan
+                  pengerjaan rapi, sentris, dan bergaransi.
+                </p>
+              </div>
+              <div>
+                <span class="font-semibold text-slate-300 block mb-2"
+                  >Daftar Booking Masuk:</span
+                >
+                <div
+                  id="booking-list-container"
+                  class="space-y-2 max-h-60 overflow-y-auto pr-1"
+                >
+                  <!-- Rendered by JS -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. TAB ADMIN PANEL -->
       <section id="page-admin" class="page-content space-y-6">
         <div
           class="flex justify-between items-center border-b border-slate-800 pb-4"
@@ -501,7 +669,7 @@
               Tambah Katalog (Admin Panel)
             </h2>
             <p class="text-xs text-slate-400">
-              Halaman ini dilindungi PIN dan hanya dapat diakses oleh Anda.
+              Halaman terproteksi PIN khusus pemilik toko.
             </p>
           </div>
           <div class="flex items-center gap-2">
@@ -671,6 +839,14 @@
         <i class="fa-solid fa-layer-group text-lg"></i> Katalog
       </button>
       <button
+        onclick="switchPage('booking')"
+        id="mob-booking"
+        class="mob-btn flex flex-col items-center gap-1 text-slate-400 text-[10px]"
+      >
+        <i class="fa-solid fa-calendar-check text-lg text-emerald-400"></i>
+        Booking
+      </button>
+      <button
         onclick="requestAdminAccess()"
         id="mob-admin"
         class="mob-btn flex flex-col items-center gap-1 text-slate-400 text-[10px]"
@@ -740,6 +916,7 @@
         }
       }
 
+      // DATA INITIAL KATALOG
       const initialProducts = [
         {
           id: 1,
@@ -794,6 +971,115 @@
 
       function saveProducts(products) {
         localStorage.setItem("pelangi_products", JSON.stringify(products));
+      }
+
+      // BOOKING SYSTEM STORAGE
+      function getBookings() {
+        const saved = localStorage.getItem("pelangi_bookings");
+        return saved ? JSON.parse(saved) : [];
+      }
+
+      function saveBookings(bookings) {
+        localStorage.setItem("pelangi_bookings", JSON.stringify(bookings));
+        renderBookingList();
+      }
+
+      function checkSlotAvailability() {
+        const dateVal = document.getElementById("b-date").value;
+        if (!dateVal) return;
+
+        const bookings = getBookings();
+        const countForDate = bookings.filter((b) => b.date === dateVal).length;
+        const alertBox = document.getElementById("slot-alert");
+        const submitBtn = document.getElementById("btn-submit-booking");
+
+        if (countForDate >= 2) {
+          alertBox.className =
+            "p-3 rounded-xl text-xs bg-red-500/10 border border-red-500/30 text-red-400 font-semibold";
+          alertBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> Slot Penuh (${countForDate}/2 Kendaraan). Silakan pilih tanggal lain agar pengerjaan tetap maksimal.`;
+          submitBtn.disabled = true;
+          submitBtn.classList.add("opacity-50", "cursor-not-allowed");
+        } else {
+          alertBox.className =
+            "p-3 rounded-xl text-xs bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-semibold";
+          alertBox.innerHTML = `<i class="fa-solid fa-circle-check me-1"></i> Slot Tersedia (${2 - countForDate} kuota tersisa untuk tanggal ini).`;
+          submitBtn.disabled = false;
+          submitBtn.classList.remove("opacity-50", "cursor-not-allowed");
+        }
+      }
+
+      function handleBooking(e) {
+        e.preventDefault();
+        const name = document.getElementById("b-name").value;
+        const phone = document.getElementById("b-phone").value;
+        const vehicle = document.getElementById("b-vehicle").value;
+        const date = document.getElementById("b-date").value;
+        const service = document.getElementById("b-service").value;
+
+        const bookings = getBookings();
+        const countForDate = bookings.filter((b) => b.date === date).length;
+
+        if (countForDate >= 2) {
+          alert(
+            "Maaf, slot di tanggal tersebut sudah penuh (maksimal 2 kendaraan per hari).",
+          );
+          return;
+        }
+
+        const newBooking = {
+          id: Date.now(),
+          name,
+          phone,
+          vehicle,
+          date,
+          service,
+        };
+        bookings.push(newBooking);
+        saveBookings(bookings);
+
+        const waText = `Halo Pelangi LED Variasi, saya ingin konfirmasi Booking Jadwal Pemasangan:\n\n- Nama: ${name}\n- No HP/WA: ${phone}\n- Kendaraan: ${vehicle}\n- Tanggal: ${date}\n- Layanan: ${service}\n\nMohon konfirmasi ketersediaannya. Terima kasih!`;
+        window.open(
+          `https://wa.me/?text=${encodeURIComponent(waText)}`,
+          "_blank",
+        );
+
+        document.getElementById("booking-form").reset();
+        alert("Booking berhasil dicatat & terhubung ke WhatsApp bengkel!");
+        renderBookingList();
+      }
+
+      function renderBookingList() {
+        const container = document.getElementById("booking-list-container");
+        const bookings = getBookings();
+        container.innerHTML = "";
+
+        if (bookings.length === 0) {
+          container.innerHTML = `<p class="text-slate-500 italic">Belum ada data booking terjadwal.</p>`;
+          return;
+        }
+
+        bookings.forEach((b) => {
+          const item = document.createElement("div");
+          item.className =
+            "p-2.5 bg-slate-900 border border-slate-800 rounded-xl flex justify-between items-center gap-2";
+          item.innerHTML = `
+          <div>
+            <span class="font-bold text-slate-200 block">${b.name} (${b.vehicle})</span>
+            <span class="text-[10px] text-emerald-400"><i class="fa-regular fa-calendar me-1"></i>${b.date} • ${b.service}</span>
+          </div>
+          ${isAdminLoggedIn ? `<button onclick="deleteBooking(${b.id})" class="text-red-400 hover:text-red-300 text-xs px-2"><i class="fa-solid fa-trash"></i></button>` : ""}
+        `;
+          container.appendChild(item);
+        });
+      }
+
+      function deleteBooking(id) {
+        if (!isAdminLoggedIn) return;
+        if (confirm("Batalkan & hapus data booking ini?")) {
+          let bookings = getBookings();
+          bookings = bookings.filter((b) => b.id !== id);
+          saveBookings(bookings);
+        }
       }
 
       function switchPage(pageId) {
@@ -882,8 +1168,8 @@
               <span class="text-[10px] text-slate-500 block">Estimasi Harga</span>
               <span class="text-lg font-black text-white">Rp ${p.price.toLocaleString("id-ID")}</span>
             </div>
-            <a href="https://wa.me/?text=${encodeURIComponent(`Halo Pelangi LED Variasi, saya tertarik pesan: ${p.name} (Rp ${p.price.toLocaleString("id-ID")}). Apakah kompatibel untuk kendaraan saya?`)}" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition">
-              <i class="fa-brands fa-whatsapp text-sm"></i> Order via WA
+            <a href="https://wa.me/?text=${encodeURIComponent(`Halo Pelangi LED Variasi, saya tertarik pesan: ${p.name} (Rp ${p.price.toLocaleString("id-ID")}). Apakah stoknya ready?`)}" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition">
+              <i class="fa-brands fa-whatsapp text-sm"></i> Order
             </a>
           </div>
         `;
@@ -974,6 +1260,7 @@
       document.addEventListener("DOMContentLoaded", () => {
         switchPage("home");
         renderCatalog();
+        renderBookingList();
         setSimColor("#06b6d4");
         updateAdminNavUI();
       });
