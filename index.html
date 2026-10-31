@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pelangi LED Variasi | Modifikasi LED & Projie</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              brand: {
+                dark: "#0b0f19",
+                card: "#151c2c",
+                accent: "#06b6d4",
+                neonPurple: "#a855f7",
+                neonPink: "#ec4899",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .glow-cyan {
+        filter: drop-shadow(0 0 10px rgba(6, 182, 212, 0.6));
+      }
+      .glow-purple {
+        filter: drop-shadow(0 0 10px rgba(168, 85, 247, 0.6));
+      }
+      .page-content {
+        display: none;
+      }
+      .page-content.active {
+        display: block;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-brand-dark text-slate-100 font-sans min-h-screen flex flex-col pb-20 md:pb-0"
+  >
+    <!-- NAVBAR UTAMA -->
+    <header
+      class="sticky top-0 z-50 bg-brand-dark/95 backdrop-blur-md border-b border-slate-800"
+    >
+      <div
+        class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between"
+      >
+        <!-- LOGO -->
+        <div
+          class="flex items-center gap-3 cursor-pointer"
+          onclick="switchPage('home')"
+        >
+          <div
+            class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-purple-600 flex items-center justify-center shadow-lg shadow-cyan-500/30"
+          >
+            <i class="fa-solid fa-lightbulb text-xl text-white"></i>
+          </div>
+          <div>
+            <h1
+              class="font-extrabold text-lg tracking-wider bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-500 bg-clip-text text-transparent"
+            >
+              PELANGI LED VARIASI
+            </h1>
+            <p class="text-[10px] text-slate-400 tracking-widest uppercase">
+              Custom Lighting Specialist
+            </p>
+          </div>
+        </div>
+
+        <!-- DESKTOP NAVIGATION -->
+        <nav
+          class="hidden md:flex items-center gap-1 bg-slate-900/80 p-1.5 rounded-xl border border-slate-800"
+        >
+          <button
+            onclick="switchPage('home')"
+            id="nav-home"
+            class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2"
+          >
+            <i class="fa-solid fa-house"></i> Beranda
+          </button>
+          <button
+            onclick="switchPage('simulator')"
+            id="nav-simulator"
+            class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2"
+          >
+            <i class="fa-solid fa-sliders"></i> Simulator LED
+          </button>
+          <button
+            onclick="switchPage('katalog')"
+            id="nav-katalog"
+            class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2"
+          >
+            <i class="fa-solid fa-layer-group"></i> Katalog Lampu
+          </button>
+          <button
+            onclick="requestAdminAccess()"
+            id="nav-admin"
+            class="nav-btn px-4 py-2 rounded-lg text-sm font-semibold transition flex items-center gap-2 text-pink-400"
+          >
+            <i class="fa-solid fa-lock" id="admin-icon"></i> Kelola Admin
+          </button>
+        </nav>
+
+        <!-- SOSMED HEADER LINK -->
+        <div class="hidden lg:flex items-center gap-3">
+          <a
+            href="https://www.tiktok.com/@tsani_03"
+            target="_blank"
+            class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium flex items-center gap-2 text-slate-300 transition"
+          >
+            <i class="fa-brands fa-tiktok text-cyan-400"></i> TikTok @tsani_03
+          </a>
+          <a
+            href="https://www.instagram.com/pelangi_led_variasi"
+            target="_blank"
+            class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium flex items-center gap-2 text-slate-300 transition"
+          >
+            <i class="fa-brands fa-instagram text-pink-400"></i>
+            @pelangi_led_variasi
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT CONTAINER -->
+    <main class="max-w-7xl mx-auto px-4 py-6 flex-grow">
+      <!-- 1. TAB BERANDA -->
+      <section id="page-home" class="page-content active space-y-8">
+        <div
+          class="relative rounded-3xl overflow-hidden bg-gradient-to-r from-slate-900 via-brand-card to-slate-900 border border-slate-800 p-8 md:p-12"
+        >
+          <div
+            class="absolute -right-10 -bottom-10 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl"
+          ></div>
+          <div
+            class="absolute -left-10 -top-10 w-64 h-64 bg-purple-500/10 rounded-full blur-3xl"
+          ></div>
+
+          <div class="relative z-10 max-w-2xl space-y-4">
+            <span
+              class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-semibold"
+            >
+              <span
+                class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"
+              ></span>
+              Bengkel Specialist LED Motor & Mobil
+            </span>
+            <h2 class="text-3xl md:text-5xl font-black leading-tight">
+              Upgrade Lampu Kendaraan <br />
+              <span
+                class="bg-gradient-to-r from-cyan-400 to-purple-500 bg-clip-text text-transparent"
+                >Lebih Terang & Estetik</span
+              >
+            </h2>
+            <p class="text-slate-400 text-sm md:text-base">
+              Melayani pemasangan Custom BiLED Projie, DRL Alis Running,
+              Underglow Neon, Strobo, & Modul Kedip dengan garansi kualitas
+              terbaik.
+            </p>
+            <div class="flex flex-wrap gap-4 pt-2">
+              <button
+                onclick="switchPage('simulator')"
+                class="px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-lg shadow-cyan-500/25 hover:opacity-90 transition flex items-center gap-2"
+              >
+                <i class="fa-solid fa-sliders"></i> Coba Simulator LED
+              </button>
+              <button
+                onclick="switchPage('katalog')"
+                class="px-6 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 font-bold transition flex items-center gap-2"
+              >
+                <i class="fa-solid fa-box-open"></i> Lihat Katalog
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARDS -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div
+            onclick="switchPage('simulator')"
+            class="p-6 rounded-2xl bg-brand-card border border-slate-800 hover:border-cyan-500/50 transition cursor-pointer group space-y-3"
+          >
+            <div
+              class="w-12 h-12 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center text-xl group-hover:scale-110 transition"
+            >
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <h3 class="font-bold text-lg text-slate-100">
+              Interactive Simulator
+            </h3>
+            <p class="text-xs text-slate-400">
+              Uji simulasi warna lampu projie, alis DRL, dan underglow pada
+              kendaraan secara real-time.
+            </p>
+          </div>
+
+          <div
+            onclick="switchPage('katalog')"
+            class="p-6 rounded-2xl bg-brand-card border border-slate-800 hover:border-purple-500/50 transition cursor-pointer group space-y-3"
+          >
+            <div
+              class="w-12 h-12 rounded-xl bg-purple-500/10 text-purple-400 flex items-center justify-center text-xl group-hover:scale-110 transition"
+            >
+              <i class="fa-solid fa-boxes-stacked"></i>
+            </div>
+            <h3 class="font-bold text-lg text-slate-100">Katalog Lengkap</h3>
+            <p class="text-xs text-slate-400">
+              Temukan berbagai tipe lampu variasi dengan spesifikasi lengkap dan
+              pemesanan WhatsApp cepat.
+            </p>
+          </div>
+
+          <div
+            onclick="requestAdminAccess()"
+            class="p-6 rounded-2xl bg-brand-card border border-slate-800 hover:border-pink-500/50 transition cursor-pointer group space-y-3"
+          >
+            <div
+              class="w-12 h-12 rounded-xl bg-pink-500/10 text-pink-400 flex items-center justify-center text-xl group-hover:scale-110 transition"
+            >
+              <i class="fa-solid fa-user-shield"></i>
+            </div>
+            <h3 class="font-bold text-lg text-slate-100">
+              Area Terproteksi Admin
+            </h3>
+            <p class="text-xs text-slate-400">
+              Khusus pemilik toko (butuh PIN) untuk menambah dan mengelola
+              produk.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. TAB SIMULATOR LED -->
+      <section id="page-simulator" class="page-content space-y-6">
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4"
+        >
+          <div>
+            <h2 class="text-2xl font-bold flex items-center gap-2">
+              <i class="fa-solid fa-sliders text-cyan-400"></i> Simulator Warna
+              LED Interaktif
+            </h2>
+            <p class="text-xs text-slate-400">
+              Simulasikan warna dan gaya nyala lampu kendaraan sebelum memesan.
+            </p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div
+            class="lg:col-span-2 bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col items-center justify-center min-h-[360px] relative overflow-hidden"
+          >
+            <div
+              class="relative w-full max-w-md h-64 flex items-center justify-center"
+            >
+              <svg
+                class="w-full h-full text-slate-800"
+                viewBox="0 0 300 200"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M50 150 C70 120, 100 80, 150 80 C200 80, 230 120, 250 150 Z"
+                  stroke="#334155"
+                  stroke-width="4"
+                  fill="#0f172a"
+                />
+                <path
+                  d="M110 80 L150 30 L190 80 Z"
+                  fill="#1e293b"
+                  stroke="#334155"
+                  stroke-width="2"
+                />
+              </svg>
+              <div
+                id="sim-projie"
+                class="absolute w-16 h-16 rounded-full top-24 left-1/2 -translate-x-1/2 flex items-center justify-center transition-all duration-300"
+              >
+                <div class="w-8 h-8 rounded-full bg-white shadow-lg"></div>
+              </div>
+              <div
+                id="sim-drl"
+                class="absolute top-16 left-1/2 -translate-x-1/2 w-40 h-3 rounded-full transition-all duration-300"
+              ></div>
+              <div
+                id="sim-underglow"
+                class="absolute bottom-6 left-1/2 -translate-x-1/2 w-64 h-4 rounded-full blur-md transition-all duration-300"
+              ></div>
+            </div>
+          </div>
+
+          <div
+            class="bg-brand-card border border-slate-800 rounded-2xl p-6 space-y-6"
+          >
+            <h3
+              class="font-bold text-slate-200 border-b border-slate-800 pb-3 flex items-center gap-2"
+            >
+              <i class="fa-solid fa-palette text-cyan-400"></i> Kontrol Warna &
+              Mode
+            </h3>
+            <div class="space-y-2">
+              <label class="text-xs text-slate-400 font-semibold"
+                >Pilih Area Lampu:</label
+              >
+              <select
+                id="select-part"
+                class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-200 focus:outline-none focus:border-cyan-500"
+              >
+                <option value="projie">BiLED Projie Utama</option>
+                <option value="drl">Alis DRL Running</option>
+                <option value="underglow">Kolong / Underglow Neon</option>
+              </select>
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs text-slate-400 font-semibold"
+                >Pilih Warna Neon:</label
+              >
+              <div class="grid grid-cols-4 gap-2">
+                <button
+                  onclick="setSimColor('#06b6d4')"
+                  class="h-10 rounded-xl bg-cyan-500 border border-white/20 hover:scale-105 transition"
+                ></button>
+                <button
+                  onclick="setSimColor('#a855f7')"
+                  class="h-10 rounded-xl bg-purple-500 border border-white/20 hover:scale-105 transition"
+                ></button>
+                <button
+                  onclick="setSimColor('#ec4899')"
+                  class="h-10 rounded-xl bg-pink-500 border border-white/20 hover:scale-105 transition"
+                ></button>
+                <button
+                  onclick="setSimColor('#ef4444')"
+                  class="h-10 rounded-xl bg-red-500 border border-white/20 hover:scale-105 transition"
+                ></button>
+              </div>
+            </div>
+            <button
+              onclick="orderSimResult()"
+              class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 font-bold text-white shadow-lg hover:opacity-90 transition flex items-center justify-center gap-2"
+            >
+              <i class="fa-brands fa-whatsapp text-lg"></i> Pesan Racikan Ini
+              via WA
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. TAB KATALOG PRODUK -->
+      <section id="page-katalog" class="page-content space-y-6">
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-slate-800 pb-4"
+        >
+          <div>
+            <h2 class="text-2xl font-bold flex items-center gap-2">
+              <i class="fa-solid fa-layer-group text-purple-400"></i> Katalog
+              Lampu & Variasi
+            </h2>
+            <p class="text-xs text-slate-400">
+              Pilih komponen variasi LED sesuai kebutuhan kendaraan Anda.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            <button
+              onclick="filterCategory('All')"
+              class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-cyan-500 text-white"
+            >
+              Semua
+            </button>
+            <button
+              onclick="filterCategory('Projie')"
+              class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300"
+            >
+              BiLED Projie
+            </button>
+            <button
+              onclick="filterCategory('DRL')"
+              class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300"
+            >
+              DRL Alis
+            </button>
+            <button
+              onclick="filterCategory('Underglow')"
+              class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300"
+            >
+              Underglow
+            </button>
+            <button
+              onclick="filterCategory('Strobo')"
+              class="filter-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-800 text-slate-300"
+            >
+              Modul & Strobo
+            </button>
+          </div>
+        </div>
+
+        <div
+          id="catalog-grid"
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        ></div>
+      </section>
+
+      <!-- 4. TAB TAMBAH PRODUK (KHUSUS ADMIN - DITERPROTEKSI PIN) -->
+      <section id="page-admin" class="page-content space-y-6">
+        <div
+          class="flex justify-between items-center border-b border-slate-800 pb-4"
+        >
+          <div>
+            <h2 class="text-2xl font-bold flex items-center gap-2">
+              <i class="fa-solid fa-user-shield text-pink-400"></i> Kelola &
+              Tambah Katalog (Admin Panel)
+            </h2>
+            <p class="text-xs text-slate-400">
+              Halaman ini dilindungi PIN dan hanya dapat diakses oleh Anda.
+            </p>
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              onclick="changeAdminPin()"
+              class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-slate-700"
+            >
+              <i class="fa-solid fa-key me-1"></i> Ubah PIN
+            </button>
+            <button
+              onclick="logoutAdmin()"
+              class="px-3 py-1.5 rounded-lg bg-red-500/20 hover:bg-red-500/30 text-red-400 text-xs font-medium border border-red-500/30"
+            >
+              <i class="fa-solid fa-right-from-bracket me-1"></i> Logout
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="max-w-2xl mx-auto bg-brand-card border border-slate-800 rounded-2xl p-6 space-y-4"
+        >
+          <form
+            id="add-product-form"
+            onsubmit="handleAddProduct(event)"
+            class="space-y-4"
+          >
+            <div>
+              <label class="text-xs text-slate-400 font-semibold block mb-1"
+                >Nama Produk / Lampu</label
+              >
+              <input
+                type="text"
+                id="p-name"
+                required
+                placeholder="Contoh: Paket Projie AES Experience 2.5 Inch"
+                class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-500"
+              />
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs text-slate-400 font-semibold block mb-1"
+                  >Kategori</label
+                >
+                <select
+                  id="p-category"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-500"
+                >
+                  <option value="Projie">BiLED Projie</option>
+                  <option value="DRL">DRL Alis Running</option>
+                  <option value="Underglow">Underglow Neon</option>
+                  <option value="Strobo">Modul & Strobo</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-xs text-slate-400 font-semibold block mb-1"
+                  >Estimasi Harga (Rp)</label
+                >
+                <input
+                  type="number"
+                  id="p-price"
+                  required
+                  placeholder="550000"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-500"
+                />
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs text-slate-400 font-semibold block mb-1"
+                  >Warna Utama (Badge)</label
+                >
+                <select
+                  id="p-color"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-500"
+                >
+                  <option value="#06b6d4">Ice Blue / Cyan</option>
+                  <option value="#a855f7">Purple / Ungu</option>
+                  <option value="#ec4899">Pink Neon</option>
+                  <option value="#ef4444">Devil Red</option>
+                  <option value="#eab308">Gold / Yellow</option>
+                </select>
+              </div>
+              <div>
+                <label class="text-xs text-slate-400 font-semibold block mb-1"
+                  >Mode Nyala</label
+                >
+                <input
+                  type="text"
+                  id="p-mode"
+                  placeholder="Contoh: Running Strobe 21 Mode"
+                  class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-500"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs text-slate-400 font-semibold block mb-1"
+                >Deskripsi Fitur</label
+              >
+              <textarea
+                id="p-desc"
+                rows="3"
+                required
+                placeholder="Lengkap dengan relay set, hemat aki..."
+                class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm text-slate-200 focus:outline-none focus:border-cyan-500"
+              ></textarea>
+            </div>
+
+            <button
+              type="submit"
+              class="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-purple-600 font-bold text-white shadow-lg hover:opacity-90 transition flex items-center justify-center gap-2"
+            >
+              <i class="fa-solid fa-plus"></i> Simpan ke Katalog Produk
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <!-- MOBILE NAVIGATION -->
+    <div
+      class="fixed bottom-0 left-0 right-0 bg-slate-950/95 backdrop-blur-md border-t border-slate-800 md:hidden z-50 px-4 py-2 flex justify-around items-center"
+    >
+      <button
+        onclick="switchPage('home')"
+        id="mob-home"
+        class="mob-btn flex flex-col items-center gap-1 text-slate-400 text-[10px]"
+      >
+        <i class="fa-solid fa-house text-lg"></i> Beranda
+      </button>
+      <button
+        onclick="switchPage('simulator')"
+        id="mob-simulator"
+        class="mob-btn flex flex-col items-center gap-1 text-slate-400 text-[10px]"
+      >
+        <i class="fa-solid fa-sliders text-lg"></i> Simulator
+      </button>
+      <button
+        onclick="switchPage('katalog')"
+        id="mob-katalog"
+        class="mob-btn flex flex-col items-center gap-1 text-slate-400 text-[10px]"
+      >
+        <i class="fa-solid fa-layer-group text-lg"></i> Katalog
+      </button>
+      <button
+        onclick="requestAdminAccess()"
+        id="mob-admin"
+        class="mob-btn flex flex-col items-center gap-1 text-slate-400 text-[10px]"
+      >
+        <i class="fa-solid fa-lock text-lg" id="mob-admin-icon"></i> Admin
+      </button>
+    </div>
+
+    <!-- JAVASCRIPT SYSTEM -->
+    <script>
+      // DEFINE DEFAULT PIN (DIUBAH ATAU TERSIMPAN DI BROWSER)
+      const DEFAULT_PIN = "1234";
+      let isAdminLoggedIn = false;
+
+      function getAdminPin() {
+        return localStorage.getItem("pelangi_admin_pin") || DEFAULT_PIN;
+      }
+
+      // PROTEKSI AKSES HAK ADMIN
+      function requestAdminAccess() {
+        if (isAdminLoggedIn) {
+          switchPage("admin");
+          return;
+        }
+
+        const inputPin = prompt(
+          "Masukkan PIN Khusus Admin / Pemilik Toko untuk Mengakses Menu Ini:",
+        );
+        if (inputPin === null) return; // User Cancelled
+
+        if (inputPin === getAdminPin()) {
+          isAdminLoggedIn = true;
+          updateAdminNavUI();
+          switchPage("admin");
+          alert("Akses Admin Berhasil!");
+        } else {
+          alert("PIN Salah! Akses Ditolak.");
+        }
+      }
+
+      function changeAdminPin() {
+        const current = prompt("Masukkan PIN Lama Anda:");
+        if (current === getAdminPin()) {
+          const newPin = prompt("Masukkan PIN Baru Anda:");
+          if (newPin && newPin.trim() !== "") {
+            localStorage.setItem("pelangi_admin_pin", newPin.trim());
+            alert("PIN Admin Berhasil Diperbarui!");
+          }
+        } else {
+          alert("PIN Lama Salah!");
+        }
+      }
+
+      function logoutAdmin() {
+        isAdminLoggedIn = false;
+        updateAdminNavUI();
+        switchPage("home");
+        alert("Anda telah keluar dari mode Admin.");
+      }
+
+      function updateAdminNavUI() {
+        const desktopIcon = document.getElementById("admin-icon");
+        const mobileIcon = document.getElementById("mob-admin-icon");
+
+        if (isAdminLoggedIn) {
+          if (desktopIcon)
+            desktopIcon.className = "fa-solid fa-unlock text-emerald-400";
+          if (mobileIcon)
+            mobileIcon.className = "fa-solid fa-unlock text-emerald-400";
+        } else {
+          if (desktopIcon)
+            desktopIcon.className = "fa-solid fa-lock text-pink-400";
+          if (mobileIcon)
+            mobileIcon.className = "fa-solid fa-lock text-pink-400";
+        }
+      }
+
+      // DATA INITIAL KATALOG
+      const initialProducts = [
+        {
+          id: 1,
+          name: "BiLED Projie Matrix 2.5 Inch",
+          category: "Projie",
+          price: 650000,
+          color: "#06b6d4",
+          mode: "High-Low Beam + Devil Eye",
+          desc: "Sinar fokus padat, tidak menyilaukan dari depan, pendingin kipas silent.",
+        },
+        {
+          id: 2,
+          name: "DRL Alis Running Slim Neon",
+          category: "DRL",
+          price: 180000,
+          color: "#a855f7",
+          mode: "Welcome Light + Turn Signal",
+          desc: "Pemasangan luar/dalam batok, fleksibel dan waterproof anti bintik.",
+        },
+        {
+          id: 3,
+          name: "Underglow Neon Kolong RGB",
+          category: "Underglow",
+          price: 220000,
+          color: "#ec4899",
+          mode: "App Wireless Control",
+          desc: "Bisa ganti warna via HP, tahan guncangan dan cipratan air hujan.",
+        },
+        {
+          id: 4,
+          name: "Modul Kedip Strobo Wave 8 Mode",
+          category: "Strobo",
+          price: 95000,
+          color: "#ef4444",
+          mode: "8 Pattern Strobe",
+          desc: "Cocok untuk lampu rem atau strobo variasi touring.",
+        },
+      ];
+
+      function getProducts() {
+        const saved = localStorage.getItem("pelangi_products");
+        return saved ? JSON.parse(saved) : initialProducts;
+      }
+
+      function saveProducts(products) {
+        localStorage.setItem("pelangi_products", JSON.stringify(products));
+      }
+
+      function switchPage(pageId) {
+        document
+          .querySelectorAll(".page-content")
+          .forEach((el) => el.classList.remove("active"));
+        document.getElementById(`page-${pageId}`).classList.add("active");
+
+        document.querySelectorAll(".nav-btn").forEach((btn) => {
+          btn.classList.remove("bg-cyan-500", "text-white");
+          btn.classList.add("text-slate-400");
+        });
+        const activeDesktopNav = document.getElementById(`nav-${pageId}`);
+        if (activeDesktopNav) {
+          activeDesktopNav.classList.add("bg-cyan-500", "text-white");
+          activeDesktopNav.classList.remove("text-slate-400");
+        }
+
+        document.querySelectorAll(".mob-btn").forEach((btn) => {
+          btn.classList.remove("text-cyan-400");
+          btn.classList.add("text-slate-400");
+        });
+        const activeMobNav = document.getElementById(`mob-${pageId}`);
+        if (activeMobNav) {
+          activeMobNav.classList.add("text-cyan-400");
+          activeMobNav.classList.remove("text-slate-400");
+        }
+
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function renderCatalog(categoryFilter = "All") {
+        const grid = document.getElementById("catalog-grid");
+        const products = getProducts();
+        grid.innerHTML = "";
+
+        const filtered =
+          categoryFilter === "All"
+            ? products
+            : products.filter((p) => p.category === categoryFilter);
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500">Belum ada produk untuk kategori ini.</div>`;
+          return;
+        }
+
+        filtered.forEach((p) => {
+          const card = document.createElement("div");
+          card.className =
+            "bg-brand-card border border-slate-800 rounded-2xl p-5 flex flex-col justify-between space-y-4 hover:border-slate-700 transition relative overflow-hidden";
+
+          // Tombol hapus hanya berfungsi saat Admin Aktif
+          const deleteBtn = isAdminLoggedIn
+            ? `<button onclick="deleteProduct(${p.id})" class="text-slate-500 hover:text-red-400 text-xs transition" title="Hapus Item"><i class="fa-solid fa-trash"></i></button>`
+            : "";
+
+          card.innerHTML = `
+          <div class="space-y-3">
+            <div class="flex justify-between items-start gap-2">
+              <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-900 border border-slate-700 text-slate-300">${p.category}</span>
+              ${deleteBtn}
+            </div>
+
+            <div class="h-24 rounded-xl bg-slate-900 flex items-center justify-center relative overflow-hidden border border-slate-800">
+              <div class="absolute inset-0 opacity-20 blur-xl" style="background-color: ${p.color}"></div>
+              <div class="w-12 h-12 rounded-full border-2 flex items-center justify-center text-xl shadow-lg" style="border-color: ${p.color}; color: ${p.color}; box-shadow: 0 0 15px ${p.color}66">
+                <i class="fa-solid fa-bolt"></i>
+              </div>
+            </div>
+
+            <h3 class="font-bold text-slate-100 text-base leading-snug">${p.name}</h3>
+            <p class="text-xs text-slate-400 leading-relaxed">${p.desc}</p>
+            
+            <div class="text-[11px] text-cyan-400 bg-cyan-500/10 px-3 py-1.5 rounded-lg border border-cyan-500/20 font-medium">
+              <i class="fa-solid fa-circle-info me-1"></i> Mode: ${p.mode}
+            </div>
+          </div>
+
+          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+            <div>
+              <span class="text-[10px] text-slate-500 block">Estimasi Harga</span>
+              <span class="text-lg font-black text-white">Rp ${p.price.toLocaleString("id-ID")}</span>
+            </div>
+            <a href="https://wa.me/?text=${encodeURIComponent(`Halo Pelangi LED Variasi, saya tertarik pesan: ${p.name} (Rp ${p.price.toLocaleString("id-ID")})`)}" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition">
+              <i class="fa-brands fa-whatsapp text-sm"></i> Order
+            </a>
+          </div>
+        `;
+          grid.appendChild(card);
+        });
+      }
+
+      function filterCategory(cat) {
+        document.querySelectorAll(".filter-btn").forEach((btn) => {
+          btn.classList.remove("bg-cyan-500", "text-white");
+          btn.classList.add("bg-slate-800", "text-slate-300");
+        });
+        event.target.classList.add("bg-cyan-500", "text-white");
+        event.target.classList.remove("bg-slate-800", "text-slate-300");
+        renderCatalog(cat);
+      }
+
+      function handleAddProduct(e) {
+        e.preventDefault();
+        if (!isAdminLoggedIn) {
+          alert("Akses ditolak. Silakan login admin terlebih dahulu.");
+          return;
+        }
+        const products = getProducts();
+        const newP = {
+          id: Date.now(),
+          name: document.getElementById("p-name").value,
+          category: document.getElementById("p-category").value,
+          price: parseInt(document.getElementById("p-price").value),
+          color: document.getElementById("p-color").value,
+          mode: document.getElementById("p-mode").value || "Standard Mode",
+          desc: document.getElementById("p-desc").value,
+        };
+        products.unshift(newP);
+        saveProducts(products);
+        document.getElementById("add-product-form").reset();
+        alert("Produk berhasil disimpan!");
+        switchPage("katalog");
+        renderCatalog();
+      }
+
+      function deleteProduct(id) {
+        if (!isAdminLoggedIn) return;
+        if (confirm("Hapus produk ini dari katalog?")) {
+          let products = getProducts();
+          products = products.filter((p) => p.id !== id);
+          saveProducts(products);
+          renderCatalog();
+        }
+      }
+
+      let simColor = "#06b6d4";
+      function setSimColor(color) {
+        simColor = color;
+        const part = document.getElementById("select-part").value;
+        if (part === "projie") {
+          const el = document.getElementById("sim-projie");
+          el.style.backgroundColor = color;
+          el.style.boxShadow = `0 0 25px ${color}`;
+        } else if (part === "drl") {
+          const el = document.getElementById("sim-drl");
+          el.style.backgroundColor = color;
+          el.style.boxShadow = `0 0 20px ${color}`;
+        } else if (part === "underglow") {
+          const el = document.getElementById("sim-underglow");
+          el.style.backgroundColor = color;
+          el.style.boxShadow = `0 0 30px ${color}`;
+        }
+      }
+
+      function orderSimResult() {
+        const part = document.getElementById("select-part").value;
+        const text = `Halo Pelangi LED Variasi, saya mau tanya/order kustom LED hasil racikan simulator:\n- Area: ${part.toUpperCase()}\n- Warna: ${simColor}`;
+        window.open(
+          `https://wa.me/?text=${encodeURIComponent(text)}`,
+          "_blank",
+        );
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        switchPage("home");
+        renderCatalog();
+        setSimColor("#06b6d4");
+        updateAdminNavUI();
+      });
+    </script>
+  </body>
+</html>
