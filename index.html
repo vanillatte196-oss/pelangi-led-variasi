@@ -490,7 +490,7 @@
         ></div>
       </section>
 
-      <!-- 4. TAB BOOKING JADWAL PEMASANGAN (DENGAN LIST LIST ANTRIAN) -->
+      <!-- 4. TAB BOOKING JADWAL PEMASANGAN -->
       <section id="page-booking" class="page-content space-y-6">
         <div class="border-b border-slate-800 pb-4">
           <h2 class="text-2xl font-bold flex items-center gap-2">
@@ -498,14 +498,13 @@
             Jadwal Pemasangan Bengkel
           </h2>
           <p class="text-xs text-slate-400">
-            Pilih tanggal pengerjaan Anda. Maksimal kuota dibatasi
-            <strong>2 kendaraan per hari</strong> agar pengerjaan fokus dan
-            maksimal.
+            Pilih tanggal pengerjaan Anda. Kuota harian dibatasi
+            <strong>maksimal 2 kendaraan per hari</strong> demi menjaga ketelitian pengerjaan.
           </p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <!-- FORM BOOKING -->
+          <!-- FORM BOOKING UNTUK UMUM -->
           <div
             class="lg:col-span-2 bg-brand-card border border-slate-800 rounded-2xl p-6 space-y-4"
           >
@@ -600,12 +599,12 @@
                 </select>
               </div>
 
+              <!-- NOTIFIKASI STATUS SLOT SAAT TANGGAL DIPILIH -->
               <div
                 id="slot-alert"
                 class="p-3 rounded-xl text-xs bg-slate-900 border border-slate-700 text-slate-300"
               >
-                Silakan pilih tanggal untuk mengecek ketersediaan slot kuota
-                bengkel.
+                Silakan pilih tanggal untuk mengecek ketersediaan kuota slot pengerjaan.
               </div>
 
               <button
@@ -613,46 +612,51 @@
                 id="btn-submit-booking"
                 class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 font-bold text-white shadow-lg hover:opacity-90 transition flex items-center justify-center gap-2"
               >
-                <i class="fa-brands fa-whatsapp text-lg"></i> Konfirmasi Booking
-                via WhatsApp
+                <i class="fa-brands fa-whatsapp text-lg"></i> Konfirmasi Booking via WhatsApp
               </button>
             </form>
           </div>
 
-          <!-- INFORMASI KUOTA & LIST JADWAL BOOKING MASUK -->
+          <!-- REKAP SLOT & DAFTAR ANTREAN KHUSUS ADMIN -->
           <div
             class="bg-brand-card border border-slate-800 rounded-2xl p-6 space-y-4"
           >
             <h3
               class="font-bold text-slate-200 text-sm border-b border-slate-800 pb-2"
             >
-              <i class="fa-solid fa-clipboard-list text-cyan-400 me-1"></i>
-              Status Slot Bengkel
+              <i class="fa-solid fa-shield-halved text-cyan-400 me-1"></i>
+              Informasi Bengkel
             </h3>
             <div class="space-y-3 text-xs text-slate-400">
               <div
                 class="p-3 bg-slate-900 rounded-xl border border-slate-800 space-y-1"
               >
                 <span class="font-bold text-slate-200 block"
-                  >Kebijakan Kuota Harian:</span
+                  >Aturan Kuota Harian:</span
                 >
                 <p>
-                  Maksimal hanya melayani
-                  <strong>2 kendaraan per hari</strong> untuk memastikan
-                  pengerjaan rapi, sentris, dan bergaransi.
+                  Sistem otomatis mengunci pendaftaran jika tanggal yang dipilih telah terisi <strong>2 kendaraan</strong>.
                 </p>
               </div>
-              <div>
-                <span class="font-semibold text-slate-300 block mb-2"
-                  >Daftar Booking Masuk (Antrean):</span
-                >
-                <!-- WADAH LIST JADWAL BOOKING -->
+
+              <!-- BAGIAN DAFTAR BOOKING INI HANYA TAMPIL SAAT ADMIN LOGIN -->
+              <div id="admin-booking-section" class="hidden space-y-2 pt-2 border-t border-slate-800">
+                <div class="flex justify-between items-center">
+                  <span class="font-bold text-emerald-400 block"
+                    ><i class="fa-solid fa-user-shield me-1"></i> Antrean Booking (Mode Admin):</span
+                  >
+                </div>
                 <div
                   id="booking-list-container"
                   class="space-y-2 max-h-60 overflow-y-auto pr-1"
                 >
-                  <!-- Rendered dynamically by JavaScript -->
+                  <!-- Rendered dynamically by JS -->
                 </div>
+              </div>
+
+              <!-- JIKA BUKAN ADMIN, TAMPILKAN CATATAN INI -->
+              <div id="public-booking-note" class="p-3 bg-slate-900/50 rounded-xl border border-slate-800/80 text-[11px] text-slate-400 italic">
+                <i class="fa-solid fa-lock me-1 text-slate-500"></i> Daftar riwayat nama antrean hanya dapat diakses oleh Admin toko untuk menjaga privasi customer.
               </div>
             </div>
           </div>
@@ -905,16 +909,19 @@
       function updateAdminNavUI() {
         const desktopIcon = document.getElementById("admin-icon");
         const mobileIcon = document.getElementById("mob-admin-icon");
+        const adminBookingSection = document.getElementById("admin-booking-section");
+        const publicBookingNote = document.getElementById("public-booking-note");
+
         if (isAdminLoggedIn) {
-          if (desktopIcon)
-            desktopIcon.className = "fa-solid fa-unlock text-emerald-400";
-          if (mobileIcon)
-            mobileIcon.className = "fa-solid fa-unlock text-emerald-400";
+          if (desktopIcon) desktopIcon.className = "fa-solid fa-unlock text-emerald-400";
+          if (mobileIcon) mobileIcon.className = "fa-solid fa-unlock text-emerald-400";
+          if (adminBookingSection) adminBookingSection.classList.remove("hidden");
+          if (publicBookingNote) publicBookingNote.classList.add("hidden");
         } else {
-          if (desktopIcon)
-            desktopIcon.className = "fa-solid fa-lock text-pink-400";
-          if (mobileIcon)
-            mobileIcon.className = "fa-solid fa-lock text-pink-400";
+          if (desktopIcon) desktopIcon.className = "fa-solid fa-lock text-pink-400";
+          if (mobileIcon) mobileIcon.className = "fa-solid fa-lock text-pink-400";
+          if (adminBookingSection) adminBookingSection.classList.add("hidden");
+          if (publicBookingNote) publicBookingNote.classList.remove("hidden");
         }
         renderCatalog();
         renderBookingList();
@@ -977,7 +984,7 @@
         localStorage.setItem("pelangi_products", JSON.stringify(products));
       }
 
-      // BOOKING SYSTEM STORAGE & LOGIC
+      // BOOKING SYSTEM STORAGE & PENGECEKAN KUOTA
       function getBookings() {
         const saved = localStorage.getItem("pelangi_bookings");
         return saved ? JSON.parse(saved) : [];
@@ -1000,7 +1007,7 @@
         if (countForDate >= 2) {
           alertBox.className =
             "p-3 rounded-xl text-xs bg-red-500/10 border border-red-500/30 text-red-400 font-semibold";
-          alertBox.innerHTML = `<i class="fa-solid fa-triangle-exclamation me-1"></i> Slot Penuh (${countForDate}/2 Kendaraan). Silakan pilih tanggal lain agar pengerjaan tetap maksimal.`;
+          alertBox.innerHTML = `<i class="fa-solid fa-circle-xmark me-1"></i> Slot Penuh pada tanggal ${dateVal} (Kuota 2/2 terisi). Silakan pilih tanggal lain.`;
           submitBtn.disabled = true;
           submitBtn.classList.add("opacity-50", "cursor-not-allowed");
         } else {
@@ -1025,7 +1032,7 @@
 
         if (countForDate >= 2) {
           alert(
-            "Maaf, slot di tanggal tersebut sudah penuh (maksimal 2 kendaraan per hari).",
+            "Maaf, slot di tanggal tersebut sudah penuh (maksimal 2 kendaraan per hari). Silakan pilih tanggal lain.",
           );
           return;
         }
@@ -1048,8 +1055,9 @@
         );
 
         document.getElementById("booking-form").reset();
+        document.getElementById("slot-alert").className = "p-3 rounded-xl text-xs bg-slate-900 border border-slate-700 text-slate-300";
+        document.getElementById("slot-alert").innerText = "Silakan pilih tanggal untuk mengecek ketersediaan kuota slot pengerjaan.";
         alert("Booking berhasil dicatat & terhubung ke WhatsApp bengkel!");
-        renderBookingList();
       }
 
       function renderBookingList() {
@@ -1059,7 +1067,7 @@
         container.innerHTML = "";
 
         if (bookings.length === 0) {
-          container.innerHTML = `<p class="text-slate-500 italic">Belum ada data booking terjadwal.</p>`;
+          container.innerHTML = `<p class="text-slate-500 italic text-[11px]">Belum ada data booking masuk.</p>`;
           return;
         }
 
@@ -1069,7 +1077,7 @@
             "p-2.5 bg-slate-900 border border-slate-800 rounded-xl flex justify-between items-center gap-2";
           item.innerHTML = `
             <div>
-              <span class="font-bold text-slate-200 block">${b.name} (${b.vehicle})</span>
+              <span class="font-bold text-slate-200 block text-xs">${b.name} (${b.vehicle})</span>
               <span class="text-[10px] text-emerald-400"><i class="fa-regular fa-calendar me-1"></i>${b.date} • ${b.service}</span>
             </div>
             ${isAdminLoggedIn ? `<button onclick="deleteBooking(${b.id})" class="text-red-400 hover:text-red-300 text-xs px-2" title="Hapus Booking"><i class="fa-solid fa-trash"></i></button>` : ""}
@@ -1080,7 +1088,7 @@
 
       function deleteBooking(id) {
         if (!isAdminLoggedIn) return;
-        if (confirm("Batalkan & hapus data booking ini?")) {
+        if (confirm("Batalkan & hapus data booking ini dari antrean?")) {
           let bookings = getBookings();
           bookings = bookings.filter((b) => b.id !== id);
           saveBookings(bookings);
@@ -1276,7 +1284,6 @@
       document.addEventListener("DOMContentLoaded", () => {
         switchPage("home");
         renderCatalog();
-        renderBookingList();
         setSimColor("#06b6d4");
         updateAdminNavUI();
       });
