@@ -692,7 +692,7 @@
           </div>
           <div class="flex items-center gap-2">
             <button
-              onclick="changeAdminPin()"
+              onclick="openChangePinModal()"
               class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium border border-slate-700"
             >
               <i class="fa-solid fa-key me-1"></i> Ubah PIN
@@ -831,6 +831,127 @@
       </section>
     </main>
 
+    <!-- CUSTOM MODAL INPUT PIN ADMIN -->
+    <div
+      id="pin-modal"
+      class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-brand-card border border-slate-700 rounded-2xl p-6 w-full max-w-sm shadow-2xl space-y-4"
+      >
+        <div
+          class="flex justify-between items-center border-b border-slate-800 pb-3"
+        >
+          <h3
+            class="font-bold text-slate-100 text-base flex items-center gap-2"
+          >
+            <i class="fa-solid fa-shield-halved text-pink-500"></i> Akses Admin
+            Bengkel
+          </h3>
+          <button
+            onclick="closePinModal()"
+            class="text-slate-400 hover:text-slate-200 text-sm"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <p class="text-xs text-slate-400">
+          Masukkan PIN khusus pemilik toko untuk mengelola katalog & melihat
+          daftar antrean.
+        </p>
+        <div>
+          <input
+            type="password"
+            id="admin-pin-input"
+            placeholder="Masukkan PIN"
+            class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-center text-lg tracking-widest text-slate-100 focus:outline-none focus:border-pink-500"
+            onkeydown="if (event.key === 'Enter') verifyAdminPin();"
+          />
+          <p
+            id="pin-error-msg"
+            class="text-[11px] text-red-400 mt-1 hidden text-center"
+          >
+            PIN Salah! Silakan coba lagi.
+          </p>
+        </div>
+        <div class="flex gap-2 pt-2">
+          <button
+            onclick="closePinModal()"
+            class="w-1/2 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 transition"
+          >
+            Batal
+          </button>
+          <button
+            onclick="verifyAdminPin()"
+            class="w-1/2 py-2.5 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-xs font-bold text-white shadow-lg transition"
+          >
+            Masuk
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUSTOM MODAL UBAH PIN ADMIN -->
+    <div
+      id="change-pin-modal"
+      class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-brand-card border border-slate-700 rounded-2xl p-6 w-full max-w-sm shadow-2xl space-y-4"
+      >
+        <div
+          class="flex justify-between items-center border-b border-slate-800 pb-3"
+        >
+          <h3
+            class="font-bold text-slate-100 text-base flex items-center gap-2"
+          >
+            <i class="fa-solid fa-key text-cyan-400"></i> Ubah PIN Admin
+          </h3>
+          <button
+            onclick="closeChangePinModal()"
+            class="text-slate-400 hover:text-slate-200 text-sm"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">PIN Lama</label>
+            <input
+              type="password"
+              id="old-pin-input"
+              placeholder="Masukkan PIN Lama"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500"
+            />
+          </div>
+          <div>
+            <label class="text-xs text-slate-400 block mb-1">PIN Baru</label>
+            <input
+              type="password"
+              id="new-pin-input"
+              placeholder="Masukkan PIN Baru"
+              class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-sm text-slate-100 focus:outline-none focus:border-cyan-500"
+            />
+          </div>
+          <p id="change-pin-msg" class="text-[11px] hidden text-center"></p>
+        </div>
+        <div class="flex gap-2 pt-2">
+          <button
+            onclick="closeChangePinModal()"
+            class="w-1/2 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-semibold text-slate-300 transition"
+          >
+            Batal
+          </button>
+          <button
+            onclick="saveNewPin()"
+            class="w-1/2 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-xs font-bold text-white shadow-lg transition"
+          >
+            Simpan
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- MOBILE NAVIGATION -->
     <div
       class="fixed bottom-0 left-0 right-0 bg-slate-950/95 backdrop-blur-md border-t border-slate-800 md:hidden z-50 px-4 py-2 flex justify-around items-center"
@@ -875,7 +996,7 @@
 
     <!-- JAVASCRIPT SYSTEM -->
     <script>
-      // NOMOR WHATSAPP ADMIN UTAMA (AWALAN 62 TANPA SPASI/PLUS)
+      // NOMOR WHATSAPP ADMIN UTAMA
       const ADMIN_PHONE = "6285741706459";
       const DEFAULT_PIN = "1234";
       let isAdminLoggedIn = false;
@@ -889,36 +1010,82 @@
           switchPage("admin");
           return;
         }
-        const inputPin = prompt("Masukkan PIN Khusus Admin / Pemilik Toko:");
-        if (inputPin === null) return;
+        openPinModal();
+      }
+
+      function openPinModal() {
+        const modal = document.getElementById("pin-modal");
+        const input = document.getElementById("admin-pin-input");
+        const error = document.getElementById("pin-error-msg");
+        if (modal) modal.classList.remove("hidden");
+        if (input) {
+          input.value = "";
+          input.focus();
+        }
+        if (error) error.classList.add("hidden");
+      }
+
+      function closePinModal() {
+        const modal = document.getElementById("pin-modal");
+        if (modal) modal.classList.add("hidden");
+      }
+
+      function verifyAdminPin() {
+        const inputPin = document.getElementById("admin-pin-input").value;
+        const error = document.getElementById("pin-error-msg");
         if (inputPin === getAdminPin()) {
           isAdminLoggedIn = true;
           updateAdminNavUI();
+          closePinModal();
           switchPage("admin");
-          alert("Akses Admin Berhasil!");
         } else {
-          alert("PIN Salah! Akses Ditolak.");
+          if (error) error.classList.remove("hidden");
         }
       }
 
-      function changeAdminPin() {
-        const current = prompt("Masukkan PIN Lama Anda:");
-        if (current === getAdminPin()) {
-          const newPin = prompt("Masukkan PIN Baru Anda:");
-          if (newPin && newPin.trim() !== "") {
-            localStorage.setItem("pelangi_admin_pin", newPin.trim());
-            alert("PIN Admin Berhasil Diperbarui!");
-          }
-        } else {
-          alert("PIN Lama Salah!");
+      function openChangePinModal() {
+        const modal = document.getElementById("change-pin-modal");
+        const msg = document.getElementById("change-pin-msg");
+        if (modal) modal.classList.remove("hidden");
+        if (msg) msg.classList.add("hidden");
+        document.getElementById("old-pin-input").value = "";
+        document.getElementById("new-pin-input").value = "";
+      }
+
+      function closeChangePinModal() {
+        const modal = document.getElementById("change-pin-modal");
+        if (modal) modal.classList.add("hidden");
+      }
+
+      function saveNewPin() {
+        const oldPin = document.getElementById("old-pin-input").value;
+        const newPin = document.getElementById("new-pin-input").value;
+        const msg = document.getElementById("change-pin-msg");
+
+        if (oldPin !== getAdminPin()) {
+          msg.className = "text-[11px] text-red-400 block text-center";
+          msg.innerText = "PIN Lama Salah!";
+          return;
         }
+
+        if (!newPin || newPin.trim() === "") {
+          msg.className = "text-[11px] text-red-400 block text-center";
+          msg.innerText = "PIN Baru tidak boleh kosong!";
+          return;
+        }
+
+        localStorage.setItem("pelangi_admin_pin", newPin.trim());
+        msg.className = "text-[11px] text-emerald-400 block text-center";
+        msg.innerText = "PIN Berhasil diperbarui!";
+        setTimeout(() => {
+          closeChangePinModal();
+        }, 1200);
       }
 
       function logoutAdmin() {
         isAdminLoggedIn = false;
         updateAdminNavUI();
         switchPage("home");
-        alert("Anda telah keluar dari mode Admin.");
       }
 
       function updateAdminNavUI() {
@@ -1083,7 +1250,6 @@
           "p-3 rounded-xl text-xs bg-slate-900 border border-slate-700 text-slate-300";
         document.getElementById("slot-alert").innerText =
           "Silakan pilih tanggal untuk mengecek ketersediaan kuota slot pengerjaan.";
-        alert("Booking berhasil dicatat & terhubung ke WhatsApp bengkel!");
       }
 
       function renderBookingList() {
@@ -1249,7 +1415,6 @@
         products.unshift(newP);
         saveProducts(products);
         document.getElementById("add-product-form").reset();
-        alert("Produk berhasil disimpan!");
         switchPage("katalog");
         renderCatalog();
       }
