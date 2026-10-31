@@ -261,7 +261,7 @@
               <span
                 class="px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold"
               >
-                <i class="fa-solid fa-clock me-1"></i> Buka: 09.00 - 17.00 WIB
+                <i class="fa-solid fa-clock me-1"></i> Buka: 09.00 - 21.00 WIB
               </span>
               <a
                 href="https://maps.app.goo.gl/5m31U5oPvQavkr5LA?g_st=aw"
@@ -499,7 +499,8 @@
           </h2>
           <p class="text-xs text-slate-400">
             Pilih tanggal pengerjaan Anda. Kuota harian dibatasi
-            <strong>maksimal 2 kendaraan per hari</strong> demi menjaga ketelitian pengerjaan.
+            <strong>maksimal 2 kendaraan per hari</strong> demi menjaga
+            ketelitian pengerjaan.
           </p>
         </div>
 
@@ -604,7 +605,8 @@
                 id="slot-alert"
                 class="p-3 rounded-xl text-xs bg-slate-900 border border-slate-700 text-slate-300"
               >
-                Silakan pilih tanggal untuk mengecek ketersediaan kuota slot pengerjaan.
+                Silakan pilih tanggal untuk mengecek ketersediaan kuota slot
+                pengerjaan.
               </div>
 
               <button
@@ -612,7 +614,8 @@
                 id="btn-submit-booking"
                 class="w-full py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 font-bold text-white shadow-lg hover:opacity-90 transition flex items-center justify-center gap-2"
               >
-                <i class="fa-brands fa-whatsapp text-lg"></i> Konfirmasi Booking via WhatsApp
+                <i class="fa-brands fa-whatsapp text-lg"></i> Konfirmasi Booking
+                via WhatsApp
               </button>
             </form>
           </div>
@@ -635,15 +638,20 @@
                   >Aturan Kuota Harian:</span
                 >
                 <p>
-                  Sistem otomatis mengunci pendaftaran jika tanggal yang dipilih telah terisi <strong>2 kendaraan</strong>.
+                  Sistem otomatis mengunci pendaftaran jika tanggal yang dipilih
+                  telah terisi <strong>2 kendaraan</strong>.
                 </p>
               </div>
 
               <!-- BAGIAN DAFTAR BOOKING INI HANYA TAMPIL SAAT ADMIN LOGIN -->
-              <div id="admin-booking-section" class="hidden space-y-2 pt-2 border-t border-slate-800">
+              <div
+                id="admin-booking-section"
+                class="hidden space-y-2 pt-2 border-t border-slate-800"
+              >
                 <div class="flex justify-between items-center">
                   <span class="font-bold text-emerald-400 block"
-                    ><i class="fa-solid fa-user-shield me-1"></i> Antrean Booking (Mode Admin):</span
+                    ><i class="fa-solid fa-user-shield me-1"></i> Antrean
+                    Booking (Mode Admin):</span
                   >
                 </div>
                 <div
@@ -655,8 +663,13 @@
               </div>
 
               <!-- JIKA BUKAN ADMIN, TAMPILKAN CATATAN INI -->
-              <div id="public-booking-note" class="p-3 bg-slate-900/50 rounded-xl border border-slate-800/80 text-[11px] text-slate-400 italic">
-                <i class="fa-solid fa-lock me-1 text-slate-500"></i> Daftar riwayat nama antrean hanya dapat diakses oleh Admin toko untuk menjaga privasi customer.
+              <div
+                id="public-booking-note"
+                class="p-3 bg-slate-900/50 rounded-xl border border-slate-800/80 text-[11px] text-slate-400 italic"
+              >
+                <i class="fa-solid fa-lock me-1 text-slate-500"></i> Daftar
+                riwayat nama antrean hanya dapat diakses oleh Admin toko untuk
+                menjaga privasi customer.
               </div>
             </div>
           </div>
@@ -862,6 +875,8 @@
 
     <!-- JAVASCRIPT SYSTEM -->
     <script>
+      // NOMOR WHATSAPP ADMIN UTAMA (AWALAN 62 TANPA SPASI/PLUS)
+      const ADMIN_PHONE = "6285741706459";
       const DEFAULT_PIN = "1234";
       let isAdminLoggedIn = false;
 
@@ -909,17 +924,26 @@
       function updateAdminNavUI() {
         const desktopIcon = document.getElementById("admin-icon");
         const mobileIcon = document.getElementById("mob-admin-icon");
-        const adminBookingSection = document.getElementById("admin-booking-section");
-        const publicBookingNote = document.getElementById("public-booking-note");
+        const adminBookingSection = document.getElementById(
+          "admin-booking-section",
+        );
+        const publicBookingNote = document.getElementById(
+          "public-booking-note",
+        );
 
         if (isAdminLoggedIn) {
-          if (desktopIcon) desktopIcon.className = "fa-solid fa-unlock text-emerald-400";
-          if (mobileIcon) mobileIcon.className = "fa-solid fa-unlock text-emerald-400";
-          if (adminBookingSection) adminBookingSection.classList.remove("hidden");
+          if (desktopIcon)
+            desktopIcon.className = "fa-solid fa-unlock text-emerald-400";
+          if (mobileIcon)
+            mobileIcon.className = "fa-solid fa-unlock text-emerald-400";
+          if (adminBookingSection)
+            adminBookingSection.classList.remove("hidden");
           if (publicBookingNote) publicBookingNote.classList.add("hidden");
         } else {
-          if (desktopIcon) desktopIcon.className = "fa-solid fa-lock text-pink-400";
-          if (mobileIcon) mobileIcon.className = "fa-solid fa-lock text-pink-400";
+          if (desktopIcon)
+            desktopIcon.className = "fa-solid fa-lock text-pink-400";
+          if (mobileIcon)
+            mobileIcon.className = "fa-solid fa-lock text-pink-400";
           if (adminBookingSection) adminBookingSection.classList.add("hidden");
           if (publicBookingNote) publicBookingNote.classList.remove("hidden");
         }
@@ -1050,13 +1074,15 @@
 
         const waText = `Halo Pelangi LED Variasi, saya ingin konfirmasi Booking Jadwal Pemasangan:\n\n- Nama: ${name}\n- No HP/WA: ${phone}\n- Kendaraan: ${vehicle}\n- Tanggal: ${date}\n- Layanan: ${service}\n\nMohon konfirmasi ketersediaannya. Terima kasih!`;
         window.open(
-          `https://wa.me/?text=${encodeURIComponent(waText)}`,
+          `https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(waText)}`,
           "_blank",
         );
 
         document.getElementById("booking-form").reset();
-        document.getElementById("slot-alert").className = "p-3 rounded-xl text-xs bg-slate-900 border border-slate-700 text-slate-300";
-        document.getElementById("slot-alert").innerText = "Silakan pilih tanggal untuk mengecek ketersediaan kuota slot pengerjaan.";
+        document.getElementById("slot-alert").className =
+          "p-3 rounded-xl text-xs bg-slate-900 border border-slate-700 text-slate-300";
+        document.getElementById("slot-alert").innerText =
+          "Silakan pilih tanggal untuk mengecek ketersediaan kuota slot pengerjaan.";
         alert("Booking berhasil dicatat & terhubung ke WhatsApp bengkel!");
       }
 
@@ -1183,7 +1209,7 @@
                 <span class="text-[10px] text-slate-500 block">Estimasi Harga</span>
                 <span class="text-lg font-black text-white">Rp ${p.price.toLocaleString("id-ID")}</span>
               </div>
-              <a href="https://wa.me/?text=${encodeURIComponent(`Halo Pelangi LED Variasi, saya tertarik pesan: ${p.name} (Rp ${p.price.toLocaleString("id-ID")}). Apakah stoknya ready?`)}" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition">
+              <a href="https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(`Halo Pelangi LED Variasi, saya tertarik pesan: ${p.name} (Rp ${p.price.toLocaleString("id-ID")}). Apakah stoknya ready?`)}" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition">
                 <i class="fa-brands fa-whatsapp text-sm"></i> Order
               </a>
             </div>
@@ -1276,7 +1302,7 @@
         const part = document.getElementById("select-part").value;
         const text = `Halo Pelangi LED Variasi, saya mau tanya/order kustom LED hasil racikan simulator:\n- Tipe Kendaraan: ${vehicle}\n- Area Lampu: ${part.toUpperCase()}\n- Warna: ${simColor}`;
         window.open(
-          `https://wa.me/?text=${encodeURIComponent(text)}`,
+          `https://wa.me/${ADMIN_PHONE}?text=${encodeURIComponent(text)}`,
           "_blank",
         );
       }
