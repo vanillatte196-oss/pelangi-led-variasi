@@ -490,7 +490,7 @@
         ></div>
       </section>
 
-      <!-- 4. TAB BOOKING JADWAL PEMASANGAN (BARU) -->
+      <!-- 4. TAB BOOKING JADWAL PEMASANGAN (DENGAN LIST LIST ANTRIAN) -->
       <section id="page-booking" class="page-content space-y-6">
         <div class="border-b border-slate-800 pb-4">
           <h2 class="text-2xl font-bold flex items-center gap-2">
@@ -619,7 +619,7 @@
             </form>
           </div>
 
-          <!-- INFORMASI KUOTA & JADWAL TERDAFTAR -->
+          <!-- INFORMASI KUOTA & LIST JADWAL BOOKING MASUK -->
           <div
             class="bg-brand-card border border-slate-800 rounded-2xl p-6 space-y-4"
           >
@@ -644,13 +644,14 @@
               </div>
               <div>
                 <span class="font-semibold text-slate-300 block mb-2"
-                  >Daftar Booking Masuk:</span
+                  >Daftar Booking Masuk (Antrean):</span
                 >
+                <!-- WADAH LIST JADWAL BOOKING -->
                 <div
                   id="booking-list-container"
                   class="space-y-2 max-h-60 overflow-y-auto pr-1"
                 >
-                  <!-- Rendered by JS -->
+                  <!-- Rendered dynamically by JavaScript -->
                 </div>
               </div>
             </div>
@@ -855,6 +856,7 @@
       </button>
     </div>
 
+    <!-- JAVASCRIPT SYSTEM -->
     <script>
       const DEFAULT_PIN = "1234";
       let isAdminLoggedIn = false;
@@ -914,6 +916,8 @@
           if (mobileIcon)
             mobileIcon.className = "fa-solid fa-lock text-pink-400";
         }
+        renderCatalog();
+        renderBookingList();
       }
 
       // DATA INITIAL KATALOG
@@ -973,7 +977,7 @@
         localStorage.setItem("pelangi_products", JSON.stringify(products));
       }
 
-      // BOOKING SYSTEM STORAGE
+      // BOOKING SYSTEM STORAGE & LOGIC
       function getBookings() {
         const saved = localStorage.getItem("pelangi_bookings");
         return saved ? JSON.parse(saved) : [];
@@ -1050,6 +1054,7 @@
 
       function renderBookingList() {
         const container = document.getElementById("booking-list-container");
+        if (!container) return;
         const bookings = getBookings();
         container.innerHTML = "";
 
@@ -1063,12 +1068,12 @@
           item.className =
             "p-2.5 bg-slate-900 border border-slate-800 rounded-xl flex justify-between items-center gap-2";
           item.innerHTML = `
-          <div>
-            <span class="font-bold text-slate-200 block">${b.name} (${b.vehicle})</span>
-            <span class="text-[10px] text-emerald-400"><i class="fa-regular fa-calendar me-1"></i>${b.date} • ${b.service}</span>
-          </div>
-          ${isAdminLoggedIn ? `<button onclick="deleteBooking(${b.id})" class="text-red-400 hover:text-red-300 text-xs px-2"><i class="fa-solid fa-trash"></i></button>` : ""}
-        `;
+            <div>
+              <span class="font-bold text-slate-200 block">${b.name} (${b.vehicle})</span>
+              <span class="text-[10px] text-emerald-400"><i class="fa-regular fa-calendar me-1"></i>${b.date} • ${b.service}</span>
+            </div>
+            ${isAdminLoggedIn ? `<button onclick="deleteBooking(${b.id})" class="text-red-400 hover:text-red-300 text-xs px-2" title="Hapus Booking"><i class="fa-solid fa-trash"></i></button>` : ""}
+          `;
           container.appendChild(item);
         });
       }
@@ -1086,7 +1091,8 @@
         document
           .querySelectorAll(".page-content")
           .forEach((el) => el.classList.remove("active"));
-        document.getElementById(`page-${pageId}`).classList.add("active");
+        const targetPage = document.getElementById(`page-${pageId}`);
+        if (targetPage) targetPage.classList.add("active");
 
         document.querySelectorAll(".nav-btn").forEach((btn) => {
           btn.classList.remove("bg-cyan-500", "text-white");
@@ -1113,6 +1119,7 @@
 
       function renderCatalog(categoryFilter = "All") {
         const grid = document.getElementById("catalog-grid");
+        if (!grid) return;
         const products = getProducts();
         grid.innerHTML = "";
 
@@ -1136,43 +1143,43 @@
             : "";
 
           card.innerHTML = `
-          <div class="space-y-3">
-            <div class="flex justify-between items-start gap-2">
-              <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-900 border border-slate-700 text-slate-300">${p.category}</span>
-              ${deleteBtn}
-            </div>
+            <div class="space-y-3">
+              <div class="flex justify-between items-start gap-2">
+                <span class="px-2.5 py-1 rounded-md text-[10px] font-bold uppercase tracking-wider bg-slate-900 border border-slate-700 text-slate-300">${p.category}</span>
+                ${deleteBtn}
+              </div>
 
-            <div class="h-24 rounded-xl bg-slate-900 flex items-center justify-center relative overflow-hidden border border-slate-800">
-              <div class="absolute inset-0 opacity-20 blur-xl" style="background-color: ${p.color}"></div>
-              <div class="w-12 h-12 rounded-full border-2 flex items-center justify-center text-xl shadow-lg" style="border-color: ${p.color}; color: ${p.color}; box-shadow: 0 0 15px ${p.color}66">
-                <i class="fa-solid fa-bolt"></i>
+              <div class="h-24 rounded-xl bg-slate-900 flex items-center justify-center relative overflow-hidden border border-slate-800">
+                <div class="absolute inset-0 opacity-20 blur-xl" style="background-color: ${p.color}"></div>
+                <div class="w-12 h-12 rounded-full border-2 flex items-center justify-center text-xl shadow-lg" style="border-color: ${p.color}; color: ${p.color}; box-shadow: 0 0 15px ${p.color}66">
+                  <i class="fa-solid fa-bolt"></i>
+                </div>
+              </div>
+
+              <h3 class="font-bold text-slate-100 text-base leading-snug">${p.name}</h3>
+              
+              <div class="text-[11px] text-slate-400 bg-slate-900/80 p-2 rounded-lg border border-slate-800 space-y-1">
+                <div><i class="fa-solid fa-motorcycle text-cyan-400 me-1"></i> <strong>Cocok:</strong> ${p.compat || "Universal"}</div>
+                <div><i class="fa-solid fa-shield-halved text-emerald-400 me-1"></i> <strong>Info:</strong> ${p.warranty || "Produk Bergaransi"}</div>
+              </div>
+
+              <p class="text-xs text-slate-400 leading-relaxed">${p.desc}</p>
+              
+              <div class="text-[11px] text-cyan-400 bg-cyan-500/10 px-3 py-1.5 rounded-lg border border-cyan-500/20 font-medium">
+                <i class="fa-solid fa-lightbulb me-1"></i> Mode: ${p.mode}
               </div>
             </div>
 
-            <h3 class="font-bold text-slate-100 text-base leading-snug">${p.name}</h3>
-            
-            <div class="text-[11px] text-slate-400 bg-slate-900/80 p-2 rounded-lg border border-slate-800 space-y-1">
-              <div><i class="fa-solid fa-motorcycle text-cyan-400 me-1"></i> <strong>Cocok:</strong> ${p.compat || "Universal"}</div>
-              <div><i class="fa-solid fa-shield-halved text-emerald-400 me-1"></i> <strong>Info:</strong> ${p.warranty || "Produk Bergaransi"}</div>
+            <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+              <div>
+                <span class="text-[10px] text-slate-500 block">Estimasi Harga</span>
+                <span class="text-lg font-black text-white">Rp ${p.price.toLocaleString("id-ID")}</span>
+              </div>
+              <a href="https://wa.me/?text=${encodeURIComponent(`Halo Pelangi LED Variasi, saya tertarik pesan: ${p.name} (Rp ${p.price.toLocaleString("id-ID")}). Apakah stoknya ready?`)}" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition">
+                <i class="fa-brands fa-whatsapp text-sm"></i> Order
+              </a>
             </div>
-
-            <p class="text-xs text-slate-400 leading-relaxed">${p.desc}</p>
-            
-            <div class="text-[11px] text-cyan-400 bg-cyan-500/10 px-3 py-1.5 rounded-lg border border-cyan-500/20 font-medium">
-              <i class="fa-solid fa-lightbulb me-1"></i> Mode: ${p.mode}
-            </div>
-          </div>
-
-          <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
-            <div>
-              <span class="text-[10px] text-slate-500 block">Estimasi Harga</span>
-              <span class="text-lg font-black text-white">Rp ${p.price.toLocaleString("id-ID")}</span>
-            </div>
-            <a href="https://wa.me/?text=${encodeURIComponent(`Halo Pelangi LED Variasi, saya tertarik pesan: ${p.name} (Rp ${p.price.toLocaleString("id-ID")}). Apakah stoknya ready?`)}" target="_blank" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center gap-1.5 transition">
-              <i class="fa-brands fa-whatsapp text-sm"></i> Order
-            </a>
-          </div>
-        `;
+          `;
           grid.appendChild(card);
         });
       }
@@ -1225,25 +1232,34 @@
 
       function updateVehicleTag() {
         const v = document.getElementById("select-vehicle").value;
-        document.getElementById("sim-vehicle-tag").innerText = v;
+        const tag = document.getElementById("sim-vehicle-tag");
+        if (tag) tag.innerText = v;
       }
 
       let simColor = "#06b6d4";
       function setSimColor(color) {
         simColor = color;
-        const part = document.getElementById("select-part").value;
+        const partEl = document.getElementById("select-part");
+        if (!partEl) return;
+        const part = partEl.value;
         if (part === "projie") {
           const el = document.getElementById("sim-projie");
-          el.style.backgroundColor = color;
-          el.style.boxShadow = `0 0 25px ${color}`;
+          if (el) {
+            el.style.backgroundColor = color;
+            el.style.boxShadow = `0 0 25px ${color}`;
+          }
         } else if (part === "drl") {
           const el = document.getElementById("sim-drl");
-          el.style.backgroundColor = color;
-          el.style.boxShadow = `0 0 20px ${color}`;
+          if (el) {
+            el.style.backgroundColor = color;
+            el.style.boxShadow = `0 0 20px ${color}`;
+          }
         } else if (part === "underglow") {
           const el = document.getElementById("sim-underglow");
-          el.style.backgroundColor = color;
-          el.style.boxShadow = `0 0 30px ${color}`;
+          if (el) {
+            el.style.backgroundColor = color;
+            el.style.boxShadow = `0 0 30px ${color}`;
+          }
         }
       }
 
